@@ -6,9 +6,9 @@ public class Client implements IModel {
 	private String	last_name;
 	private String	first_name;
 	private String	email;
-	private long	coordinates_id;
+	private Coordinates	coordinates_id;
 	private String	phone;
-	private long	cart;
+	private Cart	cart;
 
 	public Client() {
 		// TODO Auto-generated constructor stub

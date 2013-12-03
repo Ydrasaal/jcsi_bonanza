@@ -3,11 +3,17 @@
  */
 package jcsi.orm.entity;
 
+import java.util.Map;
+
 /**
  * @author kapous_c
  *
  */
 public class Cart implements IModel {
+	
+	private long	id;
+	private Client	client_id;
+	private Map<String, Integer>	products;
 
 	/**
 	 * 
