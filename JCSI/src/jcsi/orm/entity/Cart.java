@@ -9,11 +9,10 @@ import java.util.Map;
  * @author kapous_c
  *
  */
-public class Cart implements IModel {
+public class Cart implements IEntity {
 	
-	private long	id;
-	private Client	client_id;
-	private Map<String, Integer>	products;
+	private long					id;
+	private Map<Product, Integer>	products;
 
 	/**
 	 * 

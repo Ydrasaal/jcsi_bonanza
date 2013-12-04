@@ -1,6 +1,6 @@
 package jcsi.orm.entity;
 
-public interface IModel {
+public interface IEntity {
 	
 	public void load();
 	public void loadFull();

@@ -1,13 +1,8 @@
 package jcsi.orm.entity;
 
-public class Client implements IModel {
+public class Client implements IEntity {
 	
 	private long	id;
-	private String	last_name;
-	private String	first_name;
-	private String	email;
-	private Coordinates	coordinates_id;
-	private String	phone;
 	private Cart	cart;
 
 	public Client() {
