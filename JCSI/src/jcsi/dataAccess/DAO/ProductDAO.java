@@ -1,8 +1,7 @@
-package jcsi.orm.dao;
+package jcsi.dataAccess.DAO;
 
 import java.util.List;
 
-import jcsi.orm.entity.Category;
 import jcsi.orm.entity.Product;
 
 public class ProductDAO implements IDAO<Product> {

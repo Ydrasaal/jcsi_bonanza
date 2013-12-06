@@ -1,4 +1,4 @@
-package jcsi.orm.dao;
+package jcsi.dataAccess.DAO;
 
 import java.util.List;
 
