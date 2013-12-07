@@ -23,13 +23,4 @@ public abstract class ADAO<T> {
 		List<T> list = CRUDManager.query("from " + this.name);
 		return list;
 	}
-	
-	public void update(T o) {
-		
-	}
-	
-	public void delete(T o) {
-		
-	}
-
 }

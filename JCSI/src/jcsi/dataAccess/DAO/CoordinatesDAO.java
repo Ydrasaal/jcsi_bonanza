@@ -16,16 +16,4 @@ public class CoordinatesDAO extends ADAO<Coordinates> {
 	private CoordinatesDAO() {
 		super("Coordinates");
 	}
-
-	@Override
-	public void update(Coordinates o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Coordinates o) {
-		// TODO Auto-generated method stub
-		
-	}
 }

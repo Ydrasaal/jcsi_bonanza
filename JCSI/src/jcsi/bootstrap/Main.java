@@ -4,11 +4,14 @@
 package jcsi.bootstrap;
 
 import java.io.Console;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import jcsi.dataAccess.HSessionFactory;
 import jcsi.dataAccess.CRUD.CRUDManager;
 import jcsi.dataAccess.DAO.ClientDAO;
+import jcsi.orm.entity.AEntity;
 import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Category;
 import jcsi.orm.entity.Client;
@@ -90,11 +93,17 @@ public class Main {
 		//Client touco = (Client) list.get(0);
 		Client touco = ClientDAO.getInstance().getById(0);
 		System.out.println(touco.toString());
-		touco.setEmail("nounou@hotmail.lol");
+		touco.setEmail("zouzou@hotmail.lol");
 		
 		Client taco = new Client();
+		
+		List<AEntity> l = new ArrayList<AEntity>();
+		l.add(taco);
+		l.add(touco);
 
-		CRUDManager.createOrUpdate(touco);
+		CRUDManager.createOrUpdateAll(new ArrayList<AEntity>());
+		CRUDManager.createOrUpdateAll(new HashSet<AEntity>());
+		CRUDManager.createOrUpdateAll(taco, touco);
 		
 		System.err.println("All is well.");
 	}

@@ -16,17 +16,4 @@ public class ProductDAO extends ADAO<Product> {
 	private ProductDAO() {
 		super("Product");
 	}
-
-	@Override
-	public void update(Product o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Product o) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

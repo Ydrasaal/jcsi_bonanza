@@ -1,5 +1,7 @@
 package jcsi.dataAccess.CRUD;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import jcsi.dataAccess.HSessionFactory;
@@ -16,27 +18,71 @@ public enum CRUDManager {
 	
 	@SuppressWarnings("rawtypes")
 	public static List query(String s) {
-		CRUDManager.setupNewSession();
+		CRUDManager.startTransactionProtocol();
 		Query query = CRUDManager.session.createQuery(s);
 		List list = query.list();
-		CRUDManager.endSession();
+		CRUDManager.endTransactionProtocol();
 		return list;
 	}
 	
 	public static void createOrUpdate(AEntity e) {
-		CRUDManager.setupNewSession();
+		CRUDManager.startTransactionProtocol();
 		CRUDManager.session.saveOrUpdate(e);
-		CRUDManager.endSession();
+		CRUDManager.endTransactionProtocol();
 	}
 	
-	private static void setupNewSession() {
+	public static void createOrUpdateAll(Collection<AEntity> c) {
+		int i = 0;
+		CRUDManager.startTransactionProtocol();
+		for (AEntity e : c) {
+			CRUDManager.session.saveOrUpdate(e);
+			i++;
+			if (i >= 20) {
+				CRUDManager.session.flush();
+				CRUDManager.session.clear();
+				i = 0;
+			}
+		}
+		CRUDManager.endTransactionProtocol();
+	}
+	
+	public static void createOrUpdateAll(AEntity ... entities) {
+		CRUDManager.createOrUpdateAll(Arrays.asList(entities));
+	}
+
+	public static void delete(AEntity e) {
+		CRUDManager.startTransactionProtocol();
+		CRUDManager.session.delete(e);
+		CRUDManager.endTransactionProtocol();		
+	}
+	
+	public static void deleteAll(List<AEntity> l) {
+		int i = 0;
+		CRUDManager.startTransactionProtocol();
+		for (AEntity e : l) {
+			CRUDManager.session.delete(e);
+			i++;
+			if (i >= 20) {
+				CRUDManager.session.flush();
+				CRUDManager.session.clear();
+				i = 0;
+			}
+		}
+		CRUDManager.endTransactionProtocol();
+	}
+	
+	public static void deleteAll(AEntity ... entities) {
+		CRUDManager.deleteAll(Arrays.asList(entities));
+	}
+	
+	private static void startTransactionProtocol() {
 		if (CRUDManager.session == null) {
 			CRUDManager.session = HSessionFactory.getSessionFactory().openSession();
 			CRUDManager.session.beginTransaction();
 		}
 	}
 	
-	private static void endSession() {
+	private static void endTransactionProtocol() {
 		if (CRUDManager.session != null) {
 			CRUDManager.session.getTransaction().commit();
 			CRUDManager.session.close();

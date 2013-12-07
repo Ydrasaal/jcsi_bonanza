@@ -16,17 +16,4 @@ public class ClientDAO extends ADAO<Client> {
 	private ClientDAO() {
 		super("Client");
 	}
-
-	@Override
-	public void update(Client o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Client o) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

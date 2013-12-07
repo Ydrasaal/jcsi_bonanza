@@ -16,17 +16,4 @@ public class CategoryDAO extends ADAO<Category> {
 	private CategoryDAO() {
 		super("Category");
 	}
-	
-	@Override
-	public void update(Category o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Category o) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -16,15 +16,4 @@ public class CartDAO extends ADAO<Cart> {
 	private CartDAO() {
 		super("Cart");
 	}
-	
-	@Override
-	public void update(Cart o) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Cart o) {
-		// TODO Auto-generated method stub
-	}	
 }
