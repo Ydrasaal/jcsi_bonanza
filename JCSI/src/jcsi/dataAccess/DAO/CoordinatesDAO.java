@@ -2,34 +2,33 @@ package jcsi.dataAccess.DAO;
 
 import java.util.List;
 
-import jcsi.orm.entity.Category;
+import jcsi.orm.entity.Coordinates;
 
-public enum CategoryDAO implements IDAO<Category> {
+public enum CoordinatesDAO implements IDAO<Coordinates> {
 	
 	INSTANCE;
-	
+
 	@Override
-	public Category get(long id) {
+	public Coordinates get(long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Category> getAll() {
+	public List<Coordinates> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(Category o) {
+	public void update(Coordinates o) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Category o) {
+	public void delete(Coordinates o) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

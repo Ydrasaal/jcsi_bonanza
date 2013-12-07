@@ -3,24 +3,11 @@ package jcsi.dataAccess.DAO;
 import java.util.List;
 
 import jcsi.orm.entity.Cart;
-import jcsi.orm.entity.Client;
-import jcsi.orm.entity.Product;
 
-public class CartDAO implements IDAO<Cart> {
+public enum CartDAO implements IDAO<Cart> {
 
-	private static CartDAO instance = null;
+	INSTANCE;
 	
-	private CartDAO() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public static synchronized CartDAO getInstance() {
-		if (instance == null) {
-			instance = new CartDAO();
-		}
-		return instance;
-	}
-
 	@Override
 	public Cart get(long id) {
 		// TODO Auto-generated method stub

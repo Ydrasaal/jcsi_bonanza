@@ -1,46 +1,100 @@
 package jcsi.orm.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Client implements IEntity {
+@Table(name = "client")
+public class Client extends AEntity {
+
+	@Column(name = "first_name")
+	private String	first_name;
+	@Column(name = "last_name")
+	private String	last_name;
+	@Column(name = "email_address")
+	private String	email;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Coordinates coordinates;
+	@Column(name = "phone_number")
+	private String	phone;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
+	public Set<Cart> carts;
 	
-	@Id
-	@GeneratedValue
-	@Column(name = "id")
-	private long	id;
-	@Column(name = "name", unique = true)
-	private String	name;
-	// private Cart	cart;
+	public Client() {
+		this.carts = new HashSet<Cart>();
+	}
 	
-	public long getId() {
-		return id;
+	public void addCart(Cart c) {
+		c.setClient(this);
+		this.carts.add(c);
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public String getFirstName() {
+		return this.first_name;
 	}
 
-	public String getName() {
-		return name;
+	public void setFirstName(String first_name) {
+		this.first_name = first_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getLastName() {
+		return this.last_name;
+	}
+
+	public void setLastName(String last_name) {
+		this.last_name = last_name;
+	}
+	
+	public String getFullName() {
+		return (this.first_name + " " + this.last_name);
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Coordinates getCoordinates() {
+		return this.coordinates;
+	}
+
+	public void setCoordinates(Coordinates coordinates) {
+		this.coordinates = coordinates;
+	}
+
+	public String getPhone() {
+		return this.phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Set<Cart> getCarts() {
+		return this.carts;
+	}
+
+	public void setCarts(Set<Cart> carts) {
+		this.carts = carts;
 	}
 
 	@Override
-	public void load() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void loadFull() {
-		// TODO Auto-generated method stub
+	public String toString() {
+		return("Client : " + this.first_name + " " + this.last_name + "\n"
+				+ "Email : " + this.email + "\n"
+				+ "Phone : " + this.phone + "\n"
+				+ "Address : " + this.coordinates.toString());
 	}
 
 }

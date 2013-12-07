@@ -21,6 +21,10 @@
         <!-- Montrer toutes les réquêtes générées -->
         <property name="show_sql">true</property>
         
-        <mapping class="jcsi.orm.entity.Client"/>        
+        <mapping class="jcsi.orm.entity.Client"/>
+        <mapping class="jcsi.orm.entity.Cart"/>
+        <mapping class="jcsi.orm.entity.Coordinates"/>
+        <mapping class="jcsi.orm.entity.Category"/>
+        <mapping class="jcsi.orm.entity.Product"/>
     </session-factory>
 </hibernate-configuration>

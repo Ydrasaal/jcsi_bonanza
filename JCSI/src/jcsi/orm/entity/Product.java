@@ -1,31 +1,60 @@
 package jcsi.orm.entity;
 
-public class Product implements IEntity {
-	
-	private long	id;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "product")
+public class Product extends AEntity {
+
+	@Column(name = "product_name")
 	private String	name;
+	@Column(name = "price")
+	private double	price;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Category	category;
 
 	public Product() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void load() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void loadFull() {
-		// TODO Auto-generated method stub
-		
+		// Do nothing
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getPrice() {
+		return this.price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public Category getCategory() {
+		return this.category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@Override
+	public String toString() {
+		return ("Product : " + this.name + " - " + this.price + "$\n"
+				+ "Category : " + (this.category != null ? this.category.getName() : "-"));
+	}
+
 	/**
 	 * This ensure safe use of Products as map keys
 	 */
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Product)

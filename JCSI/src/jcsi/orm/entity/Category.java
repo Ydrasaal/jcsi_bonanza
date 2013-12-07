@@ -1,27 +1,46 @@
 package jcsi.orm.entity;
 
-public class Category implements IEntity {
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "category")
+public class Category extends AEntity {
 	
-	private long	id;
+	@Column(name = "category_name")
 	private String	name;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
+	public Set<Product>	products;
 	
-	/**
-	 * 
-	 */
 	public Category() {
-		// TODO Auto-generated constructor stub
+		// Do nothing
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Set<Product> getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
 	@Override
-	public void load() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void loadFull() {
-		// TODO Auto-generated method stub
-
+	public String toString() {
+		return this.name;
 	}
 
 }

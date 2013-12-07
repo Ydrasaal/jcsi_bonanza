@@ -7,7 +7,11 @@ import java.io.Console;
 
 import jcsi.dataAccess.HSessionFactory;
 import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.orm.entity.Cart;
+import jcsi.orm.entity.Category;
 import jcsi.orm.entity.Client;
+import jcsi.orm.entity.Coordinates;
+import jcsi.orm.entity.Product;
 
 /**
  * @author kapous_c
@@ -26,10 +30,54 @@ public class Main {
 		conf = ConfLoader.getInstance();
 		conf.load();
 		*/
-		CRUDManager.getInstance().testOpen();
+		
+		//TODO HOW THE FUCK DOES THIS ID THING WORKS ?
+		
 		Client cl = new Client();
-		cl.setName("coquin");
-		CRUDManager.getInstance().testClose();
+		cl.setEmail("zobi@coucou.com");
+		cl.setFirstName("Guy");
+		cl.setLastName("Zorbier");
+		cl.setPhone("118-218");
+		cl.setCoordinates(new Coordinates());
+		Cart c = new Cart();
+		cl.addCart(c);
+		cl.getCoordinates().setAddress("32 rue boustifaille");
+		cl.getCoordinates().setCity("Nouillork");
+		cl.getCoordinates().setCountry("Fronce");
+		
+		Product p = new Product();
+		p.setName("coin-coin en caoutchouc");
+		p.setPrice(38.7);
+		p.setCategory(new Category());
+		p.getCategory().setName("Merde en plastoc");
+		
+		Client cll = new Client();
+		cll.setEmail("salou@coucou.com");
+		cll.setFirstName("Jean");
+		cll.setLastName("Savon");
+		cll.setPhone("666");
+		cll.setCoordinates(new Coordinates());
+		Cart cc = new Cart();
+		cll.addCart(cc);
+		cll.getCoordinates().setAddress("1 voie Do");
+		cll.getCoordinates().setCity("Lossann Jelaiss");
+		cll.getCoordinates().setCountry("Sousse");
+		
+		Product pp = new Product();
+		pp.setName("vibro en mousse");
+		pp.setPrice(786);
+		pp.setCategory(new Category());
+		pp.getCategory().setName("Merde en plastoc");
+		
+		CRUDManager.getInstance().createOrUpdate(cl);
+		CRUDManager.getInstance().createOrUpdate(p);
+		CRUDManager.getInstance().createOrUpdate(cll);
+		CRUDManager.getInstance().createOrUpdate(pp);
+		
+		System.err.println(cl.toString());
+		System.err.println(c.toString());
+		System.err.println(p.toString());
+		
 		System.err.println("All is well.");
 	}
 
