@@ -1,23 +1,20 @@
 package jcsi.dataAccess.DAO;
 
-import java.util.List;
-
 import jcsi.orm.entity.Coordinates;
 
-public enum CoordinatesDAO implements IDAO<Coordinates> {
+public class CoordinatesDAO extends ADAO<Coordinates> {
 	
-	INSTANCE;
-
-	@Override
-	public Coordinates get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	private static CoordinatesDAO instance = null;
+	
+	public static synchronized CoordinatesDAO getInstance() {
+		if (CoordinatesDAO.instance == null) {
+			CoordinatesDAO.instance = new CoordinatesDAO();
+		}
+		return CoordinatesDAO.instance;
 	}
-
-	@Override
-	public List<Coordinates> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private CoordinatesDAO() {
+		super("Coordinates");
 	}
 
 	@Override

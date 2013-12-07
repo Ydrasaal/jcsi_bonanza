@@ -4,9 +4,11 @@
 package jcsi.bootstrap;
 
 import java.io.Console;
+import java.util.List;
 
 import jcsi.dataAccess.HSessionFactory;
 import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.dataAccess.DAO.ClientDAO;
 import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Category;
 import jcsi.orm.entity.Client;
@@ -50,7 +52,8 @@ public class Main {
 		p.setPrice(38.7);
 		p.setCategory(new Category());
 		p.getCategory().setName("Merde en plastoc");
-		
+
+		/*
 		Client cll = new Client();
 		cll.setEmail("salou@coucou.com");
 		cll.setFirstName("Jean");
@@ -68,15 +71,30 @@ public class Main {
 		pp.setPrice(786);
 		pp.setCategory(new Category());
 		pp.getCategory().setName("Merde en plastoc");
+		*/
 		
-		CRUDManager.getInstance().createOrUpdate(cl);
-		CRUDManager.getInstance().createOrUpdate(p);
+		CRUDManager.createOrUpdate(cl);
+		CRUDManager.createOrUpdate(p);
+		/*
 		CRUDManager.getInstance().createOrUpdate(cll);
 		CRUDManager.getInstance().createOrUpdate(pp);
+		 */
 		
 		System.err.println(cl.toString());
 		System.err.println(c.toString());
 		System.err.println(p.toString());
+		
+		//List list = CRUDManager.query("from Client");
+		
+		
+		//Client touco = (Client) list.get(0);
+		Client touco = ClientDAO.getInstance().getById(0);
+		System.out.println(touco.toString());
+		touco.setEmail("nounou@hotmail.lol");
+		
+		Client taco = new Client();
+
+		CRUDManager.createOrUpdate(touco);
 		
 		System.err.println("All is well.");
 	}

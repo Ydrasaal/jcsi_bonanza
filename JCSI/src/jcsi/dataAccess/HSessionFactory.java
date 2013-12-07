@@ -3,7 +3,9 @@ package jcsi.dataAccess;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class HSessionFactory {
+public enum HSessionFactory {
+	
+	INSTANCE;
 	
 	private static SessionFactory sessionFactory;
 

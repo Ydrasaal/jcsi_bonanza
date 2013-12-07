@@ -1,23 +1,20 @@
 package jcsi.dataAccess.DAO;
 
-import java.util.List;
-
 import jcsi.orm.entity.Client;
 
-public enum ClientDAO implements IDAO<Client> {
+public class ClientDAO extends ADAO<Client> {
 
-	INSTANCE;
+	private static ClientDAO instance = null;
 	
-	@Override
-	public Client get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public static synchronized ClientDAO getInstance() {
+		if (ClientDAO.instance == null) {
+			ClientDAO.instance = new ClientDAO();
+		}
+		return ClientDAO.instance;
 	}
-
-	@Override
-	public List<Client> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private ClientDAO() {
+		super("Client");
 	}
 
 	@Override

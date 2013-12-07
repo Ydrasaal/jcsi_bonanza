@@ -15,8 +15,6 @@
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         
-        <!-- Supprimer et re-créée le schéma de base de données au démarrage -->
-        <property name="hbm2ddl.auto">create</property>
 
         <!-- Montrer toutes les réquêtes générées -->
         <property name="show_sql">true</property>

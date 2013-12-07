@@ -1,25 +1,22 @@
 package jcsi.dataAccess.DAO;
 
-import java.util.List;
-
 import jcsi.orm.entity.Category;
 
-public enum CategoryDAO implements IDAO<Category> {
+public class CategoryDAO extends ADAO<Category> {
 	
-	INSTANCE;
+	private static CategoryDAO instance = null;
 	
-	@Override
-	public Category get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public static synchronized CategoryDAO getInstance() {
+		if (CategoryDAO.instance == null) {
+			CategoryDAO.instance = new CategoryDAO();
+		}
+		return CategoryDAO.instance;
 	}
-
-	@Override
-	public List<Category> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private CategoryDAO() {
+		super("Category");
 	}
-
+	
 	@Override
 	public void update(Category o) {
 		// TODO Auto-generated method stub

@@ -1,23 +1,20 @@
 package jcsi.dataAccess.DAO;
 
-import java.util.List;
-
 import jcsi.orm.entity.Product;
 
-public enum ProductDAO implements IDAO<Product> {
+public class ProductDAO extends ADAO<Product> {
 
-	INSTANCE;
+	private static ProductDAO instance = null;
 	
-	@Override
-	public Product get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public static synchronized ProductDAO getInstance() {
+		if (ProductDAO.instance == null) {
+			ProductDAO.instance = new ProductDAO();
+		}
+		return ProductDAO.instance;
 	}
-
-	@Override
-	public List<Product> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private ProductDAO() {
+		super("Product");
 	}
 
 	@Override

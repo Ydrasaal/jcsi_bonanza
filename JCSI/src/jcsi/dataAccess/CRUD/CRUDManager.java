@@ -1,31 +1,47 @@
 package jcsi.dataAccess.CRUD;
 
+import java.util.List;
+
 import jcsi.dataAccess.HSessionFactory;
 import jcsi.orm.entity.AEntity;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class CRUDManager {
+public enum CRUDManager {
 	
-	private static CRUDManager instance = null;
+	INSTANCE;
 	
-	private CRUDManager() {
-		//Do nothing
+	private static Session	session = null;
+	
+	@SuppressWarnings("rawtypes")
+	public static List query(String s) {
+		CRUDManager.setupNewSession();
+		Query query = CRUDManager.session.createQuery(s);
+		List list = query.list();
+		CRUDManager.endSession();
+		return list;
 	}
 	
-	public static synchronized CRUDManager getInstance() {
-		if (instance == null) {
-			instance = new CRUDManager();
+	public static void createOrUpdate(AEntity e) {
+		CRUDManager.setupNewSession();
+		CRUDManager.session.saveOrUpdate(e);
+		CRUDManager.endSession();
+	}
+	
+	private static void setupNewSession() {
+		if (CRUDManager.session == null) {
+			CRUDManager.session = HSessionFactory.getSessionFactory().openSession();
+			CRUDManager.session.beginTransaction();
 		}
-		return instance;
 	}
 	
-	public void createOrUpdate(AEntity e) {
-		Session session = HSessionFactory.getSessionFactory().openSession();
-		session.beginTransaction();
-		session.saveOrUpdate(e);
-		session.getTransaction().commit();
-		session.close();
+	private static void endSession() {
+		if (CRUDManager.session != null) {
+			CRUDManager.session.getTransaction().commit();
+			CRUDManager.session.close();
+			CRUDManager.session = null;
+		}
 	}
 	
 	/*

@@ -1,25 +1,22 @@
 package jcsi.dataAccess.DAO;
 
-import java.util.List;
-
 import jcsi.orm.entity.Cart;
 
-public enum CartDAO implements IDAO<Cart> {
+public class CartDAO extends ADAO<Cart> {
 
-	INSTANCE;
+	private static CartDAO instance = null;
 	
-	@Override
-	public Cart get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public static synchronized CartDAO getInstance() {
+		if (CartDAO.instance == null) {
+			CartDAO.instance = new CartDAO();
+		}
+		return CartDAO.instance;
 	}
-
-	@Override
-	public List<Cart> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private CartDAO() {
+		super("Cart");
 	}
-
+	
 	@Override
 	public void update(Cart o) {
 		// TODO Auto-generated method stub
