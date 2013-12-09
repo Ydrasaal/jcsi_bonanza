@@ -7,10 +7,13 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import jcsi.dataAccess.HSessionFactory;
 import jcsi.dataAccess.CRUD.CRUDManager;
 import jcsi.dataAccess.DAO.ClientDAO;
+import jcsi.exception.BadConfException;
 import jcsi.orm.entity.AEntity;
 import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Category;
@@ -87,8 +90,25 @@ public class Main {
 		
 		
 		//Client touco = (Client) list.get(0);
-		Client touco = ClientDAO.getInstance().getById(0);
-		System.out.println(touco.toString());
+		
+		/* 
+		TRACE,
+		DEBUG,
+		INFO,
+		WARN,
+		ERROR
+		FATAL
+		*/
+		
+		Logger log = Logger.getLogger("main");
+		log.setLevel(Level.INFO);
+		log.info("COucou");
+		log.warning("Warning.");
+		
+		throw new BadConfException();
+
+		//Client touco = ClientDAO.getInstance().getById(0);
+		//System.out.println(touco.toString());
 
 		/*
 		touco.setEmail("zouzou@hotmail.lol");
@@ -104,7 +124,7 @@ public class Main {
 		CRUDManager.createOrUpdateAll(taco, touco);
 		
 		*/
-		System.err.println("All is well.");
+		//System.err.println("All is well.");
 	}
 
 }

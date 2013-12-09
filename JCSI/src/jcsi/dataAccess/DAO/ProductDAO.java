@@ -12,7 +12,7 @@ public class ProductDAO extends ADAO<Product> {
 		}
 		return ProductDAO.instance;
 	}
-	
+
 	private ProductDAO() {
 		super("Product");
 	}
