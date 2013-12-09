@@ -25,7 +25,7 @@ public class Cart extends AEntity {
 	@Transient
 	public Client	client;
 	// TODO I don't know how to do this in sql !
-	@Transient
+	@Transient //EAGER
 	private Map<Product, Integer>	products;
 	
 	public Cart() {

@@ -16,4 +16,8 @@ public class CategoryDAO extends ADAO<Category> {
 	private CategoryDAO() {
 		super("Category");
 	}
+	
+	public Category getByName(String s) {
+		return null;
+	}
 }
