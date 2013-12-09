@@ -45,7 +45,6 @@ public class ClientDAO extends ADAO<Client> {
 	 */
 	public List<Client> getAllByEMail(String email) {
 		return this.getAllBy("where email = " + email);
-<<<<<<< HEAD
 	}
 	
 	//TODO lower-level coordinates query
@@ -101,7 +100,5 @@ public class ClientDAO extends ADAO<Client> {
 	public List<Client> getAllByProduct(long product_id) {
 		// TODO I suck at sql
 		return null;
-=======
->>>>>>> 2e2cc191dc8c8d0dccea13178541740f22a70d0d
 	}
 }

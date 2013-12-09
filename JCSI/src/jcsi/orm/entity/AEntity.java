@@ -2,6 +2,7 @@ package jcsi.orm.entity;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -9,8 +10,9 @@ import javax.persistence.MappedSuperclass;
 public abstract class AEntity {
 	
 	@Id
-	@Column(name = "id")
-	private long	id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true)
+	private int	id;
 
 	public long getId() {
 		return this.id;
