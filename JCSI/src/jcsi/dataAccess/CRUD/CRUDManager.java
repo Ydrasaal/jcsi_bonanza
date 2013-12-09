@@ -23,6 +23,7 @@ public enum CRUDManager {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static List query(String s) {
+		System.out.println("Query : " + s);
 		CRUDManager.startTransactionProtocol();
 		Query query = CRUDManager.session.createQuery(s);
 		List list = query.list();

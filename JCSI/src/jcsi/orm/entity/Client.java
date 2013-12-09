@@ -21,8 +21,8 @@ public class Client extends AEntity {
 	private String	last_name;
 	@Column(name = "email_address")
 	private String	email;
-	//@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	//private Coordinates coordinates;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Coordinates coordinates;
 	@Column(name = "phone_number")
 	private String	phone;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
@@ -70,7 +70,6 @@ public class Client extends AEntity {
 		this.email = email;
 	}
 
-	/*
 	public Coordinates getCoordinates() {
 		return this.coordinates;
 	}
@@ -78,7 +77,6 @@ public class Client extends AEntity {
 	public void setCoordinates(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
-	*/
 
 	public String getPhone() {
 		return this.phone;
@@ -100,8 +98,8 @@ public class Client extends AEntity {
 	public String toString() {
 		return("Client : " + this.first_name + " " + this.last_name + "\n"
 				+ "Email : " + this.email + "\n"
-				+ "Phone : " + this.phone + "\n");
-				//+ "Address : " + (this.coordinates != null ? this.coordinates.toString() : ""));
+				+ "Phone : " + this.phone + "\n"
+				+ "Address : " + (this.coordinates != null ? this.coordinates.toString() : ""));
 	}
 
 }

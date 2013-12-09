@@ -1,7 +1,9 @@
 package jcsi.dataAccess.DAO;
 
+import java.util.HashSet;
 import java.util.List;
 
+import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Client;
 import jcsi.orm.entity.Product;
 
@@ -20,13 +22,20 @@ public class ClientDAO extends ADAO<Client> {
 		super("Client");
 	}
 	
+	public void loadCarts(Client c) {
+		if (c != null) {
+			c.carts.clear();
+			c.carts = new HashSet<Cart>(CartDAO.getInstance().getAllByClient(c));
+		}
+	}
+	
 	/**
 	 * Retrieve clients from first name
 	 * @param first_name
 	 * @return Client list
 	 */
 	public List<Client> getAllByFirstName(String first_name) {
-		return this.getAllBy("where last_name = " + first_name);
+		return this.getAllBy("where last_name = '" + first_name + "'");
 	}
 	
 	/**
@@ -35,7 +44,7 @@ public class ClientDAO extends ADAO<Client> {
 	 * @return Client list
 	 */
 	public List<Client> getAllByLastName(String last_name) {
-		return this.getAllBy("where last_name = " + last_name);
+		return this.getAllBy("where last_name = '" + last_name + "'");
 	}
 
 	/**
@@ -44,7 +53,7 @@ public class ClientDAO extends ADAO<Client> {
 	 * @return Client list
 	 */
 	public List<Client> getAllByEMail(String email) {
-		return this.getAllBy("where email = " + email);
+		return this.getAllBy("where email = '" + email + "'");
 	}
 	
 	//TODO lower-level coordinates query

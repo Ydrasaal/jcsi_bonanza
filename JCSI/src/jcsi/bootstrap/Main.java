@@ -3,11 +3,11 @@
  */
 package jcsi.bootstrap;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
 import jcsi.dataAccess.CRUD.CRUDManager;
-import jcsi.exception.BadConfException;
+import jcsi.dataAccess.DAO.CategoryDAO;
+import jcsi.dataAccess.DAO.ClientDAO;
 import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Category;
 import jcsi.orm.entity.Client;
@@ -25,14 +25,11 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		/*
 		ConfLoader conf  = null;
 		conf = ConfLoader.getInstance();
 		conf.load();
 		*/
-		
-		//TODO HOW THE FUCK DOES THIS ID THING WORKS ?
 		
 		
 		Client cl = new Client();
@@ -40,37 +37,57 @@ public class Main {
 		cl.setFirstName("Guy");
 		cl.setLastName("Zorbier");
 		cl.setPhone("118-218");
-		//cl.setCoordinates(new Coordinates());
+		
+		Coordinates coo = new Coordinates();
+		coo.setAddress("32 rue boustifaille");
+		coo.setCity("Nouillork");
+		coo.setCountry("Fronce");
+		cl.setCoordinates(coo);
+
 		Cart c = new Cart();
 		cl.addCart(c);
-		//cl.getCoordinates().setAddress("32 rue boustifaille");
-		//cl.getCoordinates().setCity("Nouillork");
-		//cl.getCoordinates().setCountry("Fronce");
 		
 		Product p = new Product();
 		p.setName("coin-coin en caoutchouc");
 		p.setPrice(38.7);
-		p.setCategory(new Category());
-		p.getCategory().setName("Merde en plastoc");
 		
-
+		Category cat = new Category();
+		cat.setName("Merde en plastoc");
+		p.setCategory(cat);
+		
+		//CRUDManager.createOrUpdate(cl);
+		//CRUDManager.createOrUpdate(p);
+		
 		Client cll = new Client();
 		cll.setEmail("salou@coucou.com");
-		cll.setFirstName("Jean");
+		cll.setFirstName("Josie");
 		cll.setLastName("Savon");
 		cll.setPhone("666");
-		//cll.setCoordinates(new Coordinates());
-		//cll.getCoordinates().setAddress("1 voie Do");
-		//cll.getCoordinates().setCity("Lossann Jelaiss");
-		//cll.getCoordinates().setCountry("Sousse");
+		cll.setCoordinates(new Coordinates());
+		cll.getCoordinates().setAddress("1 voie Do");
+		cll.getCoordinates().setCity("Lossann Jelaiss");
+		cll.getCoordinates().setCountry("Sousse");
 		
 		Product pp = new Product();
 		pp.setName("vibro en mousse");
 		pp.setPrice(786);
-		pp.setCategory(new Category());
-		pp.getCategory().setName("Merde en plastoc");
+		pp.setCategory(CategoryDAO.getInstance().getById(cat.getId()));
 		
-		Client clll = new Client();
+
+		//CRUDManager.createOrUpdate(cll);
+		//CRUDManager.createOrUpdate(pp);
+
+		List<Client> loh = ClientDAO.getInstance().getAllByLastName("Savon");
+		
+		if (loh != null) {
+			System.out.println("Proceeding to dump " + loh.size() + " results");
+			for (Client clicli : loh) {
+				System.out.println(clicli.toString());
+			}
+		} else {
+			System.out.println("CACA");
+		}
+		
 		/*
 		System.err.println(cl.toString());
 		System.err.println(c.toString());
@@ -101,9 +118,6 @@ public class Main {
 		 */
 		
 		//Client touco = ClientDAO.getInstance().getById(0);
-		System.out.println("id : " + cll.getId());
-		System.out.println("id : " + clll.getId());
-		CRUDManager.createOrUpdate(pp);
 		//CRUDManager.session.saveOrUpdate(cl);
 
 		/*

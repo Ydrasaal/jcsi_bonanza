@@ -3,9 +3,10 @@ package jcsi.orm.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "coordinates")
+@Table(name = "coordinates", uniqueConstraints = @UniqueConstraint(columnNames = {"address", "city", "country"}))
 public class Coordinates extends AEntity {
 	
 	@Column(name = "address")
