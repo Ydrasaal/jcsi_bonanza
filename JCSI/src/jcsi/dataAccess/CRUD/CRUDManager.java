@@ -16,6 +16,11 @@ public enum CRUDManager {
 	
 	private static Session	session = null;
 	
+	/**
+	 * Send a SQL or HQL query to the server
+	 * @param s query as String
+	 * @return results as List
+	 */
 	@SuppressWarnings("rawtypes")
 	public static List query(String s) {
 		CRUDManager.startTransactionProtocol();
@@ -75,14 +80,20 @@ public enum CRUDManager {
 		CRUDManager.deleteAll(Arrays.asList(entities));
 	}
 	
-	private static void startTransactionProtocol() {
+	/**
+	 * Open a new session (If there isn't already one) and start a transaction
+	 */
+	public static void startTransactionProtocol() {
 		if (CRUDManager.session == null) {
 			CRUDManager.session = HSessionFactory.getSessionFactory().openSession();
 			CRUDManager.session.beginTransaction();
 		}
 	}
 	
-	private static void endTransactionProtocol() {
+	/**
+	 * If there's an open session, commit the transaction and close the session
+	 */
+	public static void endTransactionProtocol() {
 		if (CRUDManager.session != null) {
 			CRUDManager.session.getTransaction().commit();
 			CRUDManager.session.close();
@@ -90,16 +101,64 @@ public enum CRUDManager {
 		}
 	}
 	
-	/*
-	public void testOpen() {
-		this.session = HSessionFactory.getSessionFactory().openSession();
-		this.transaction = session.beginTransaction();
+	/**
+	 * Open a new session (Close the old one if there's one)
+	 */
+	public static void openSession() {
+		if (CRUDManager.session != null) {
+			CRUDManager.session.close();
+		}
+		CRUDManager.session = HSessionFactory.getSessionFactory().openSession();
 	}
 	
-	public void testClose() {
-		this.transaction.commit();
-		this.session.close();
+	/**
+	 * Close session if it's open, else do nothing
+	 */
+	public static void closeSession() {
+		//TODO Exception if session null
+		if (CRUDManager.session.isOpen()) {
+			CRUDManager.session.close();
+			CRUDManager.session = null;
+		}
 	}
-	*/
-
+	
+	/**
+	 * Clear session
+	 */
+	public static void clearSession() {
+		//TODO blahblabh
+		CRUDManager.session.clear();
+	}
+	
+	/**
+	 * Flush session
+	 */
+	public static void flushSession() {
+		//TODO pika pika
+		CRUDManager.session.flush();
+	}
+	
+	/**
+	 * Start a transaction
+	 */
+	public static void beginTransaction() {
+		//TODO Exception if session is null
+		CRUDManager.session.beginTransaction();
+	}
+	
+	/**
+	 * Commit transaction
+	 */
+	public static void commitTransaction() {
+		//TODO Exception if session null or transaction not open
+		CRUDManager.session.getTransaction().commit();
+	}
+	
+	/**
+	 * Rollback transaction
+	 */
+	public static void rollbackTransaction() {
+		//TODO Exception if session null or transaction not open
+		CRUDManager.session.getTransaction().rollback();
+	}
 }

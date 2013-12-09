@@ -94,7 +94,7 @@ public class Client extends AEntity {
 		return("Client : " + this.first_name + " " + this.last_name + "\n"
 				+ "Email : " + this.email + "\n"
 				+ "Phone : " + this.phone + "\n"
-				+ "Address : " + this.coordinates.toString());
+				+ "Address : " + (this.coordinates != null ? this.coordinates.toString() : ""));
 	}
 
 }

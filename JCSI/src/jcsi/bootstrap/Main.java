@@ -38,6 +38,7 @@ public class Main {
 		
 		//TODO HOW THE FUCK DOES THIS ID THING WORKS ?
 		
+		/*
 		Client cl = new Client();
 		cl.setEmail("zobi@coucou.com");
 		cl.setFirstName("Guy");
@@ -55,7 +56,7 @@ public class Main {
 		p.setPrice(38.7);
 		p.setCategory(new Category());
 		p.getCategory().setName("Merde en plastoc");
-
+		 */
 		/*
 		Client cll = new Client();
 		cll.setEmail("salou@coucou.com");
@@ -75,17 +76,12 @@ public class Main {
 		pp.setCategory(new Category());
 		pp.getCategory().setName("Merde en plastoc");
 		*/
-		
-		CRUDManager.createOrUpdate(cl);
-		CRUDManager.createOrUpdate(p);
+				
 		/*
-		CRUDManager.getInstance().createOrUpdate(cll);
-		CRUDManager.getInstance().createOrUpdate(pp);
-		 */
-		
 		System.err.println(cl.toString());
 		System.err.println(c.toString());
 		System.err.println(p.toString());
+		*/
 		
 		//List list = CRUDManager.query("from Client");
 		
@@ -93,6 +89,8 @@ public class Main {
 		//Client touco = (Client) list.get(0);
 		Client touco = ClientDAO.getInstance().getById(0);
 		System.out.println(touco.toString());
+
+		/*
 		touco.setEmail("zouzou@hotmail.lol");
 		
 		Client taco = new Client();
@@ -105,6 +103,7 @@ public class Main {
 		CRUDManager.createOrUpdateAll(new HashSet<AEntity>());
 		CRUDManager.createOrUpdateAll(taco, touco);
 		
+		*/
 		System.err.println("All is well.");
 	}
 
