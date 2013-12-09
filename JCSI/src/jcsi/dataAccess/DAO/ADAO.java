@@ -4,23 +4,27 @@ import java.util.List;
 
 import jcsi.dataAccess.CRUD.CRUDManager;
 
+@SuppressWarnings("unchecked")
 public abstract class ADAO<T> {
 
-	private String name;
+	protected String name;
 	
 	protected ADAO(String name) {
 		this.name = name;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public T getById(long id) {
-		List<T> list = CRUDManager.query("from " + this.name + " where id = 'id'");
-		return list.get(0);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<T> getAll() {
-		List<T> list = CRUDManager.query("from " + this.name);
+	protected List<T> getAllBy(String s) {
+		List<T> list = CRUDManager.query("from " + this.name + " " + s);
 		return list;
 	}
+	
+	public T getById(long id) {
+		List<T> list = CRUDManager.query("from " + this.name + " where id = " + id);
+		return (list.size() > 0 ? list.get(0) : null);
+	}
+	
+	public List<T> getAll() {
+		return this.getAllBy("");
+	}
+	
 }

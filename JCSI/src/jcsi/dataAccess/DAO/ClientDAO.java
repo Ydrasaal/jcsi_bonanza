@@ -20,15 +20,29 @@ public class ClientDAO extends ADAO<Client> {
 	}
 	
 	/**
-	 * Retrieve clients from last name
-	 * @param last_name
-	 * @return results List
+	 * Retrieve clients from first name
+	 * @param first_name
+	 * @return Client list
 	 */
-	public List<Client> getAllByName(String last_name) {
-		return this.getAllBy("where last_name = " + last_name);
+	public List<Client> getAllByFirstName(String first_name) {
+		return this.getAllBy("where last_name = " + first_name);
 	}
 	
+	/**
+	 * Retrieve clients from last name
+	 * @param last_name
+	 * @return Client list
+	 */
+	public List<Client> getAllByLastName(String last_name) {
+		return this.getAllBy("where last_name = " + last_name);
+	}
+
+	/**
+	 * Retrieve clients from email
+	 * @param email
+	 * @return Client list
+	 */
 	public List<Client> getAllByEMail(String email) {
-		return null;
+		return this.getAllBy("where email = " + email);
 	}
 }
