@@ -54,6 +54,6 @@ public class Content extends AEntity {
 
 	@Override
 	public String toString() {
-		return (this.quantity + " x " + this.product.toString());
+		return (this.quantity + " x " + (this.product != null ? this.product.toString() : "?"));
 	}
 }
