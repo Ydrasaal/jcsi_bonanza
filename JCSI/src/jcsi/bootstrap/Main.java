@@ -3,29 +3,11 @@
  */
 package jcsi.bootstrap;
 
-<<<<<<< HEAD
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.log4j.Layout;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.WriterAppender;
-
 import jcsi.dataAccess.DAO.CategoryDAO;
-import jcsi.dataAccess.DAO.ClientDAO;
 import jcsi.exception.BadConfException;
 import jcsi.gui.WindowView;
 import jcsi.log.UniLogger;
-=======
 import jcsi.dataAccess.CRUD.CRUDManager;
-import jcsi.dataAccess.DAO.CategoryDAO;
->>>>>>> 3dd9800286243c63138a4063962f4b64fe181fbe
 import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Category;
 import jcsi.orm.entity.Client;
@@ -42,31 +24,28 @@ public class Main {
 	public Main() {
 	}
 
-<<<<<<< HEAD
-	public static void main(String[] args) throws IOException {
-		WindowView view = new WindowView();
-		
-		view.setSize(800, 600);
-		view.setLocation(150, 100);
-		view.setVisible(true);
-		
-		UniLogger logg = UniLogger.getInstance(view);
-		
-		//Logger logg = Logger.getLogger("main");
-		logg.error("This is an error");
-		for (int i = 0; i < 20; ++i) {
-			logg.info("Some Information");
-		}
-
-	//	view.log.append(sw.toString());		
-=======
 	public static void main(String[] args) {
 		/*
 		ConfLoader conf  = null;
 		conf = ConfLoader.getInstance();
 		conf.load();
 		*/
->>>>>>> 3dd9800286243c63138a4063962f4b64fe181fbe
+	
+	WindowView view = new WindowView();
+	
+	view.setSize(800, 600);
+	view.setLocation(150, 100);
+	view.setVisible(true);
+	
+	UniLogger logg = UniLogger.getInstance(view);
+	
+	//Logger logg = Logger.getLogger("main");
+	logg.error("This is an error");
+	for (int i = 0; i < 20; ++i) {
+		logg.info("Some Information");
+	}
+
+//	view.log.append(sw.toString());	
 
 		Client cl = new Client();
 		cl.setEmail("zobi@coucou.com");
