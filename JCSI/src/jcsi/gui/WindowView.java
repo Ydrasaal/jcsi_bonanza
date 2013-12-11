@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
@@ -24,7 +25,13 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
+import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.dataAccess.DAO.CategoryDAO;
+import jcsi.dataAccess.DAO.ClientDAO;
+import jcsi.exception.ObjectQueryException;
 import jcsi.log.UniLogger;
+import jcsi.orm.entity.Category;
+import jcsi.orm.entity.Client;
 
 public class WindowView extends JFrame implements ActionListener {
 
@@ -188,22 +195,35 @@ public class WindowView extends JFrame implements ActionListener {
 	public static void AfficherClients() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Dumping Clients");
-		//TODO Get Collection of All Clients
+		List<Client> l = ClientDAO.INSTANCE.getAll();
+		for (Client c : l) {
+			log.info(c.toString());
+		}
 	}
 	
 	public static void AfficherPaniers() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Dumping Carts");
-		//TODO Get Collection of All Carts
+		List<Category> l = CategoryDAO.INSTANCE.getAll();
+		for (Category c : l) {
+			log.info(c.toString());
+		}
+		//TODO Remplacer par category
 	}
-	
+
+	@SuppressWarnings("rawtypes")
 	public static void ConfirmQuery() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Requesting Query");
 		String sQuery;
 		if ((sQuery = query.getText()).length() > 0) {
 			System.out.println(sQuery);
-			//TODO Make a query with the sQuery string 
+			try {
+				List l = CRUDManager.query(sQuery);
+				log.info(l.toString());
+			} catch(ObjectQueryException e) {
+				log.error(e.getMessage());
+			}
 		}
 	}
 }
