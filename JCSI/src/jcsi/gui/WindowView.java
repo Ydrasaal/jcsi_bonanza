@@ -26,12 +26,12 @@ import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
 import jcsi.dataAccess.CRUD.CRUDManager;
-import jcsi.dataAccess.DAO.CategoryDAO;
 import jcsi.dataAccess.DAO.ClientDAO;
-import jcsi.exception.ObjectQueryException;
+import jcsi.dataAccess.DAO.ProductDAO;
+import jcsi.exception.DAOException;
 import jcsi.log.UniLogger;
-import jcsi.orm.entity.Category;
 import jcsi.orm.entity.Client;
+import jcsi.orm.entity.Product;
 
 public class WindowView extends JFrame implements ActionListener {
 
@@ -84,7 +84,7 @@ public class WindowView extends JFrame implements ActionListener {
 		panel.setLayout(null);
 		panel.setBounds(0, 60, this.getX(), 55);
 		buildButton(new JButton(), "Afficher Clients", new Rectangle(50, 0, buttonWidth, buttonHeight), panel);
-		buildButton(new JButton(), "Afficher Categories", new Rectangle(50 + buttonWidth + 10, 0, buttonWidth, buttonHeight), panel);
+		buildButton(new JButton(), "Afficher Produits", new Rectangle(50 + buttonWidth + 10, 0, buttonWidth, buttonHeight), panel);
 		this.add(panel);
 	}
 
@@ -162,8 +162,7 @@ public class WindowView extends JFrame implements ActionListener {
 	}
 	
 	public static void AddClient() {
-        UniLogger log = UniLogger.getInstance();
-        log.info("Adding new Client");
+        UniLogger.INSTANCE.info("Adding new Client");
         AddClientView clView = new AddClientView();
         
         clView.setSize(460, 250);
@@ -172,8 +171,7 @@ public class WindowView extends JFrame implements ActionListener {
     }
 	
 	public static void AddProduit() {
-		UniLogger log = UniLogger.getInstance();
-		log.info("Adding new Product");
+		UniLogger.INSTANCE.info("Adding new Product");
 		AddProductView pView = new AddProductView();
 	        
 		pView.setSize(640, 100);
@@ -182,35 +180,41 @@ public class WindowView extends JFrame implements ActionListener {
 	}
 	
 	public static void AfficherClients() {
-		UniLogger log = UniLogger.getInstance();
-		log.info("Dumping Clients");
-		List<Client> l = ClientDAO.INSTANCE.getAll();
-		for (Client c : l) {
-			log.info(c.toString());
+		try {
+			UniLogger.INSTANCE.info("Dumping Clients");
+			List<Client> l = ClientDAO.INSTANCE.getAll();
+			for (Client c : l) {
+				UniLogger.INSTANCE.info(c.toString());
+			}
+		} catch(DAOException e) {
+			UniLogger.INSTANCE.error("Couldn't display client list");
 		}
 	}
 	
-	public static void AfficherCategories() {
-		UniLogger log = UniLogger.getInstance();
-		log.info("Dumping Categories");
-		List<Category> l = CategoryDAO.INSTANCE.getAll();
-		for (Category c : l) {
-			log.info(c.toString());
+	public static void AfficherProduits() {
+		try {
+			UniLogger.INSTANCE.info("Dumping Products");
+			List<Product> l = ProductDAO.INSTANCE.getAll();
+			for (Product c : l) {
+				UniLogger.INSTANCE.info(c.toString());
+			}
+		} catch(DAOException e) {
+			UniLogger.INSTANCE.error("Couldn't display product list");
 		}
+
 	}
 
 	@SuppressWarnings("rawtypes")
 	public static void ConfirmQuery() {
-		UniLogger log = UniLogger.getInstance();
-		log.info("Requesting Query");
+		UniLogger.INSTANCE.info("Requesting Query");
 		String sQuery;
 		if ((sQuery = query.getText()).length() > 0) {
 			System.out.println(sQuery);
 			try {
 				List l = CRUDManager.query(sQuery);
-				log.info(l.toString());
-			} catch(ObjectQueryException e) {
-				log.error(e.getMessage());
+				UniLogger.INSTANCE.info(l.toString());
+			} catch(Exception e) {
+				UniLogger.INSTANCE.error(e.getMessage());
 			}
 		}
 	}

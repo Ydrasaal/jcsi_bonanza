@@ -8,7 +8,6 @@ public class BadConfException extends JCSIException {
 
 	public BadConfException() {
 		super();
-		UniLogger log = UniLogger.getInstance();
-		log.error("Configuration failure ! Check the configuration file format.");
+		UniLogger.INSTANCE.error("Configuration failure ! Check the configuration file format.");
 	}
 }

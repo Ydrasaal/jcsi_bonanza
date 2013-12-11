@@ -8,8 +8,7 @@ public class JCSIException extends RuntimeException {
 
 	public JCSIException() {
 		super();
-		UniLogger log = UniLogger.getInstance();
-		log.error("Something went wrong in JCSI. Terminating");
+		UniLogger.INSTANCE.error("Something went wrong in JCSI. Terminating");
 	}
 
 }

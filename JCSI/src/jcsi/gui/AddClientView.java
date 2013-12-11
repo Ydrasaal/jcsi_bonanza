@@ -124,7 +124,7 @@ public class AddClientView extends JFrame implements ActionListener {
 			}
 			CRUDManager.createOrUpdate(c);
 		} catch(DAOException e) {
-			UniLogger.getInstance().info("Couldn't add new Client");
+			UniLogger.INSTANCE.info("Couldn't add new Client");
 		}
 	}
 

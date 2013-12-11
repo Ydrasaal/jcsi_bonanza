@@ -15,14 +15,15 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
 
-public class UniLogger {
+public enum UniLogger {
+	
+	INSTANCE;
 
-	private final WindowView view;
+	private WindowView view;
 	private Logger mLog;
 	private StringWriter sw;
-	private static UniLogger instance;
 	
-	private UniLogger(WindowView view)  {
+	public void setView(WindowView view)  {
 		this.mLog = Logger.getRootLogger();
 		this.view = view;
 		
@@ -41,18 +42,6 @@ public class UniLogger {
 		
 		WriterAppender wrfAppender = new WriterAppender(lay, fw);
 		mLog.addAppender(wrfAppender);
-	}
-	
-	public static synchronized UniLogger getInstance(WindowView view) {
-		
-		if (instance == null) {
-			instance = new UniLogger(view);
-		}
-		return instance;
-	}
-	
-	public static UniLogger getInstance() {
-		return instance;
 	}
 	
 	public void info(Object text) {

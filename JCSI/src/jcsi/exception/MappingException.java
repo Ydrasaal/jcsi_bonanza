@@ -8,8 +8,7 @@ public class MappingException extends DAOException {
 
 	public MappingException() {
 		super();
-		UniLogger log = UniLogger.getInstance();
-		log.error("Object Relationnal Mappping does not correspond to the real database.");
+		UniLogger.INSTANCE.error("Object Relationnal Mappping does not correspond to the real database.");
 	}
 
 }

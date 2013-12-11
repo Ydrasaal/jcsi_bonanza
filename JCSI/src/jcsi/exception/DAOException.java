@@ -12,8 +12,7 @@ public class DAOException extends JCSIException {
 	
 	public DAOException(String s) {
 		super();
-		UniLogger log = UniLogger.getInstance();
-		log.error("DAO transaction failed : " + s);
+		UniLogger.INSTANCE.error("DAO transaction failed : " + s);
 	}
 
 }

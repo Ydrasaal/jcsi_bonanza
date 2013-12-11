@@ -16,8 +16,7 @@ public class ObjectQueryException extends DAOException {
 
 	public ObjectQueryException(String s) {
 		super();
-		UniLogger log = UniLogger.getInstance();
-		log.error("SQL Query failure : " + s);
+		UniLogger.INSTANCE.error("SQL Query failure : " + s);
 	}
 
 }

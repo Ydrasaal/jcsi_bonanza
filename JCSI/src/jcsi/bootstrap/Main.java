@@ -9,6 +9,7 @@ import jcsi.dataAccess.DAO.CategoryDAO;
 import jcsi.dataAccess.DAO.ClientDAO;
 import jcsi.dataAccess.DAO.ProductDAO;
 import jcsi.gui.WindowView;
+import jcsi.log.UniLogger;
 import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Client;
 import jcsi.orm.entity.Content;
@@ -32,6 +33,8 @@ public class Main {
 		view.setSize(800, 600);
 		view.setLocation(150, 100);
 		view.setVisible(true);
+		
+		UniLogger.INSTANCE.setView(view);
 		
 		Client c1 = new Client();
 		c1.setEmail("tango@charlie.plon");
@@ -61,9 +64,8 @@ public class Main {
 		System.out.println(ClientDAO.INSTANCE.getAllByLastName("Zorbier").toString());
 		
 		System.out.println(CartDAO.INSTANCE.getAllByPaymentState(false).toString());
-		
 
-		System.err.println("All is well.");
+		System.out.println("All is well.");
 	}
 	
 }

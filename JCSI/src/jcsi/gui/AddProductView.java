@@ -88,7 +88,7 @@ public class AddProductView extends JFrame implements ActionListener {
 			p.setCategory(c);
 			CRUDManager.createOrUpdate(p);
 		} catch(DAOException e) {
-			UniLogger.getInstance().info("Couldn't add new product");
+			UniLogger.INSTANCE.info("Couldn't add new product");
 		}
 	}
 
