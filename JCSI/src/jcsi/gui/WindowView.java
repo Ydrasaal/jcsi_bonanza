@@ -26,8 +26,6 @@ import javax.swing.text.DefaultCaret;
 
 import jcsi.log.UniLogger;
 
-import org.apache.log4j.Logger;
-
 public class WindowView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -36,7 +34,7 @@ public class WindowView extends JFrame implements ActionListener {
 	
 	private static HashMap<JButton, Method> buttonMap;
 	private JDesktopPane	desk;	
-	private JTextArea query;
+	private static JTextArea query;
 	private JToolBar	toolBar;
 	private JMenuBar	menuBar;
 	private JMenu menuAbout;
@@ -160,30 +158,52 @@ public class WindowView extends JFrame implements ActionListener {
 	public static void AddClient() {
         UniLogger log = UniLogger.getInstance();
         log.info("Adding new Client");
+        AddClientView clView = new AddClientView();
+        
+        clView.setSize(460, 142);
+    	clView.setLocation(500, 150);
+    	clView.setVisible(true);
     }
 	
 	public static void AddPanier() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Adding new Cart");
+        AddCartView cView = new AddCartView();
+        
+        cView.setSize(460, 142);
+    	cView.setLocation(500, 150);
+    	cView.setVisible(true);
 	}
 	
 	public static void AddProduit() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Adding new Product");
+		AddProductView pView = new AddProductView();
+	        
+		pView.setSize(460, 100);
+		pView.setLocation(500, 150);
+		pView.setVisible(true);
 	}
 	
 	public static void AfficherClients() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Dumping Clients");
+		//TODO Get Collection of All Clients
 	}
 	
 	public static void AfficherPaniers() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Dumping Carts");
+		//TODO Get Collection of All Carts
 	}
 	
 	public static void ConfirmQuery() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Requesting Query");
+		String sQuery;
+		if ((sQuery = query.getText()).length() > 0) {
+			System.out.println(sQuery);
+			//TODO Make a query with the sQuery string 
+		}
 	}
 }

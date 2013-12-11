@@ -72,8 +72,4 @@ public class UniLogger {
 		view.log.append(sw.toString());
 		sw.getBuffer().setLength(0);
 	}
-
-	public WindowView getView() {
-		return view;
-	}
 }
