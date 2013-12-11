@@ -8,9 +8,10 @@ public class JCSIException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public JCSIException() {
+		super();
 		Logger log = Logger.getLogger(this.getClass().getName());
 		log.setLevel(Level.SEVERE);
-		log.severe("Somewhere, something went wrong in JCSI");
+		log.severe("Something went wrong in JCSI. Terminating");
 	}
 
 }

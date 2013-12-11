@@ -3,29 +3,45 @@ package jcsi.dataAccess.DAO;
 import java.util.HashSet;
 import java.util.List;
 
+import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.exception.DAOException;
 import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Client;
-import jcsi.orm.entity.Product;
 
-public class ClientDAO extends ADAO<Client> {
+import org.hibernate.HibernateException;
+import org.hibernate.criterion.Expression;
 
-	private static ClientDAO instance = null;
+@SuppressWarnings({"unchecked", "deprecation"})
+public enum ClientDAO implements IDAO<Client> {
+
+	INSTANCE;
 	
-	public static synchronized ClientDAO getInstance() {
-		if (ClientDAO.instance == null) {
-			ClientDAO.instance = new ClientDAO();
+	@Override
+	public Client getById(long id) {
+		try {
+			return (Client) CRUDManager.getSession().get(Client.class, id);
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return ClientDAO.instance;
 	}
-	
-	private ClientDAO() {
-		super("Client");
+
+	@Override
+	public List<Client> getAll() {
+		try {
+			return CRUDManager.getSession().createCriteria(Client.class).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 	
 	public void loadCarts(Client c) {
-		if (c != null) {
-			c.carts.clear();
-			c.carts = new HashSet<Cart>(CartDAO.getInstance().getAllByClient(c));
+		try {
+			if (c != null) {
+				c.carts.clear();
+				c.carts = new HashSet<Cart>(CartDAO.INSTANCE.getAllByClient(c));
+			}
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
 	}
 	
@@ -35,7 +51,11 @@ public class ClientDAO extends ADAO<Client> {
 	 * @return Client list
 	 */
 	public List<Client> getAllByFirstName(String first_name) {
-		return this.getAllBy("where last_name = '" + first_name + "'");
+		try {
+			return CRUDManager.getSession().createCriteria(Client.class).add(Expression.eq("first_name", first_name)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 	
 	/**
@@ -44,7 +64,11 @@ public class ClientDAO extends ADAO<Client> {
 	 * @return Client list
 	 */
 	public List<Client> getAllByLastName(String last_name) {
-		return this.getAllBy("where last_name = '" + last_name + "'");
+		try {
+			return CRUDManager.getSession().createCriteria(Client.class).add(Expression.eq("last_name", last_name)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 
 	/**
@@ -53,10 +77,12 @@ public class ClientDAO extends ADAO<Client> {
 	 * @return Client list
 	 */
 	public List<Client> getAllByEMail(String email) {
-		return this.getAllBy("where email = '" + email + "'");
+		try {
+			return CRUDManager.getSession().createCriteria(Client.class).add(Expression.eq("email_address", email)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
-	
-	//TODO lower-level coordinates query
 	
 	/**
 	 * Retrieve clients from city
@@ -64,8 +90,12 @@ public class ClientDAO extends ADAO<Client> {
 	 * @return Client list
 	 */
 	public List<Client> getAllByCity(String city) {
-		//TODO I suck at sql
-		return null;
+		try {
+			return CRUDManager.getSession().createCriteria(Client.class).createCriteria("coordinates")
+					.add(Expression.eq("city", city)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 	
 	/**
@@ -74,8 +104,12 @@ public class ClientDAO extends ADAO<Client> {
 	 * @return Client list
 	 */
 	public List<Client> getAllByCountry(String country) {
-		//TODO I suck at sql
-		return null;
+		try {
+			return CRUDManager.getSession().createCriteria(Client.class).createCriteria("coordinates")
+					.add(Expression.eq("country", country)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 	
 	/**
@@ -84,30 +118,10 @@ public class ClientDAO extends ADAO<Client> {
 	 * @return Client list
 	 */
 	public List<Client> getAllByPhone(String phone) {
-		//TODO I suck at sql
-		return null;
-	}
-	
-	
-	/**
-	 * Retrieve clients with a product in cart
-	 * @param p Product object
-	 * @return Client list
-	 */
-	public List<Client> getAllByProduct(Product p) {
-		if (p != null) {
-			return this.getAllByProduct(p.getId());
+		try {
+			return CRUDManager.getSession().createCriteria(Client.class).add(Expression.eq("phone_number", phone)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return null;
-	}
-
-	/**
-	 * Retrieve clients with a product in cart
-	 * @param productID product Id
-	 * @return Client list
-	 */
-	public List<Client> getAllByProduct(long product_id) {
-		// TODO I suck at sql
-		return null;
 	}
 }

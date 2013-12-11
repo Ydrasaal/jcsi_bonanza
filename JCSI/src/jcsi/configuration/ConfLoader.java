@@ -5,6 +5,8 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import jcsi.exception.BadConfException;
+
 public final class ConfLoader {
 
 	private static ConfLoader INSTANCE = null;
@@ -41,7 +43,7 @@ public final class ConfLoader {
 			}
 			scanner.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BadConfException();
 		}
 	}
 	
@@ -50,7 +52,7 @@ public final class ConfLoader {
 		try {
 			tmp = configuration.get(option);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
+			throw new BadConfException();
 		}
 		return tmp;
 	}

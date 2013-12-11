@@ -2,46 +2,61 @@ package jcsi.dataAccess.DAO;
 
 import java.util.List;
 
-import jcsi.orm.entity.Client;
+import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.exception.DAOException;
 import jcsi.orm.entity.Coordinates;
 
-public class CoordinatesDAO extends ADAO<Coordinates> {
+import org.hibernate.HibernateException;
+import org.hibernate.criterion.Expression;
+
+@SuppressWarnings({"unchecked", "deprecation"})
+public enum CoordinatesDAO implements IDAO<Coordinates> {
 	
-	private static CoordinatesDAO instance = null;
+	INSTANCE;
 	
-	public static synchronized CoordinatesDAO getInstance() {
-		if (CoordinatesDAO.instance == null) {
-			CoordinatesDAO.instance = new CoordinatesDAO();
+	@Override
+	public Coordinates getById(long id) {
+		try {
+			return (Coordinates) CRUDManager.getSession().get(Coordinates.class, id);
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return CoordinatesDAO.instance;
+
+	}
+
+	@Override
+	public List<Coordinates> getAll() {
+		try {
+			return CRUDManager.getSession().createCriteria(Coordinates.class).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
+
 	}
 	
-	private CoordinatesDAO() {
-		super("Coordinates");
-	}
 	
+
 	public List<Coordinates> getAllByAddress(String address) {
-		return this.getAllBy("where address = '" + address + "'");
+		try {
+			return CRUDManager.getSession().createCriteria(Coordinates.class).add(Expression.eq("address", address)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 	
 	public List<Coordinates> getAllByCity(String city) {
-		return this.getAllBy("where city = '" + city + "'");
+		try {
+			return CRUDManager.getSession().createCriteria(Coordinates.class).add(Expression.eq("city", city)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 	
 	public List<Coordinates> getAllByCountry(String country) {
-		return this.getAllBy("where country = '" + country + "'");
-	}
-	
-	public Coordinates getByClient(Client c) {
-		if (c != null) {
-			return this.getByClient(c.getId());
+		try {
+			return CRUDManager.getSession().createCriteria(Coordinates.class).add(Expression.eq("country", country)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return null;
 	}
-	
-	public Coordinates getByClient(long client_id) {
-		//TODO YODLEIHIIII
-		return null;
-	}
-
 }
