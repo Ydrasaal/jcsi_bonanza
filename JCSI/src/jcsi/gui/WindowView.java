@@ -6,6 +6,9 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
@@ -22,14 +25,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
+import org.apache.log4j.Logger;
+
 public class WindowView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private final int buttonWidth = 150;
 	private final int buttonHeight = 50;
 	
-	private HashMap<String, JButton> buttonMap;
+	private static HashMap<String, JButton> buttonMap;
 	private JDesktopPane	desk;	
+	private JTextArea query;
 	private JToolBar	toolBar;
 	private JMenuBar	menuBar;
 	private JMenu menuAbout;
@@ -71,9 +77,8 @@ public class WindowView extends JFrame {
 	private void buildDataPanel(JPanel panel) {
 		panel.setLayout(null);
 		panel.setBounds(0, 60, this.getX(), 55);
-		buildButton(new JButton(), "Load All", new Rectangle(50, 0, buttonWidth, buttonHeight), panel);
-		buildButton(new JButton(), "Load Tables", new Rectangle(50 + buttonWidth + 10, 0, buttonWidth, buttonHeight), panel);
-		buildButton(new JButton(), "Dump Tables", new Rectangle(50 + (2 * (buttonWidth + 10)), 0, buttonWidth, buttonHeight), panel);
+		buildButton(new JButton(), "Afficher Clients", new Rectangle(50, 0, buttonWidth, buttonHeight), panel);
+		buildButton(new JButton(), "Afficher Paniers", new Rectangle(50 + buttonWidth + 10, 0, buttonWidth, buttonHeight), panel);
 		this.add(panel);
 	}
 
@@ -90,7 +95,7 @@ public class WindowView extends JFrame {
 		panel.setLayout(null);
 		panel.setBounds(0, 130, this.getX(), 100);
 		buildButton(new JButton(), "Confirm Query", new Rectangle(500, 0, buttonWidth, buttonHeight), panel);
-		JTextArea query = new JTextArea();
+		query = new JTextArea();
 		query.setBounds(100, 0, 380, 80);
 		panel.add(query);
 		this.add(panel);
@@ -134,5 +139,18 @@ public class WindowView extends JFrame {
 			}
 		});	
 	}
+	
+	public void buildListeners() {
+		buttonMap.get("Confirm Query").addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(query.getText());
+				Logger logg = Logger.getLogger(this.getClass().getName());
+				logg.info("Event !!");
+			}
+			
+		});
+	}
+	
 }
