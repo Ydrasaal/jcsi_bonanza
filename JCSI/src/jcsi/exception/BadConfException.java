@@ -1,16 +1,15 @@
 package jcsi.exception;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import jcsi.log.UniLogger;
 
 public class BadConfException extends JCSIException {
 
 	private static final long serialVersionUID = 1L;
 
 	public BadConfException() {
-		Logger log = Logger.getLogger(this.getClass().getName());
-		log.setLevel(Level.SEVERE);
-		log.severe("Configuration failure ! Check the configuration file format.");
+		super();
+		UniLogger log = UniLogger.getInstance();
+		log.error("Configuration failure ! Check the configuration file format.");
 	}
 
 }
