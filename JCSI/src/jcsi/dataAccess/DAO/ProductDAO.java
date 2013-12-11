@@ -2,43 +2,70 @@ package jcsi.dataAccess.DAO;
 
 import java.util.List;
 
+import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.exception.DAOException;
 import jcsi.orm.entity.Category;
 import jcsi.orm.entity.Product;
 
-public class ProductDAO extends ADAO<Product> {
+import org.hibernate.HibernateException;
+import org.hibernate.criterion.Expression;
 
-	private static ProductDAO instance = null;
+@SuppressWarnings({"unchecked", "deprecation"})
+public enum ProductDAO implements IDAO<Product> {
+
+	INSTANCE;
 	
-	public static synchronized ProductDAO getInstance() {
-		if (ProductDAO.instance == null) {
-			ProductDAO.instance = new ProductDAO();
+	@Override
+	public Product getById(long id) {
+		try {
+			return (Product) CRUDManager.getSession().get(Product.class, id);
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return ProductDAO.instance;
 	}
 
-	private ProductDAO() {
-		super("Product");
+	@Override
+	public List<Product> getAll() {
+		try {
+			return CRUDManager.getSession().createCriteria(Product.class).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
+
 	}
 	
 	public Product getByName(String name) {
-		return this.getBy("where product_name = '" + name + "'");
+		try {
+			List<Product> l = CRUDManager.getSession().createCriteria(Product.class).add(Expression.eq("name", name)).list();
+			if (l.size() > 0) {
+				return l.get(0);
+			}
+			return null;
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
+
 	}
 	
 	public List<Product> getAllByCategory(Category c) {
-		if (c != null) {
-			return this.getAllByCategory(c.getId());
+		try {
+			if (c != null) {
+				return this.getAllByCategory(c.getId());
+			}
+			return null;
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return null;
+
 	}
 	
 	public List<Product> getAllByCategory(long category_id) {
-		//TODO JOIN AND STUFF
-		return null;
-	}
+		try {
+			return CRUDManager.getSession().createCriteria(Product.class).createCriteria("category")
+					.add(Expression.eq("id", (int) category_id)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 
-	
-	public List<Product> getAllByPriceRange(double low, double up) {
-		//TODO TSOINTSOIN
-		return null;
 	}
 }

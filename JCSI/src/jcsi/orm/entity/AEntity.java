@@ -12,7 +12,7 @@ public abstract class AEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true)
-	private int	id;
+	private long	id;
 
 	public long getId() {
 		return this.id;

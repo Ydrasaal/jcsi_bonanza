@@ -2,24 +2,39 @@ package jcsi.dataAccess.DAO;
 
 import java.util.List;
 
+import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.exception.DAOException;
 import jcsi.orm.entity.Cart;
 import jcsi.orm.entity.Client;
-import jcsi.orm.entity.Product;
 
-public class CartDAO extends ADAO<Cart> {
+import org.hibernate.HibernateException;
+import org.hibernate.criterion.Expression;
 
-	private static CartDAO instance = null;
+@SuppressWarnings({"unchecked", "deprecation"})
+public enum CartDAO implements IDAO<Cart> {
+
+	INSTANCE;
 	
-	public static synchronized CartDAO getInstance() {
-		if (CartDAO.instance == null) {
-			CartDAO.instance = new CartDAO();
+	@Override
+	public Cart getById(long id) {
+		try {
+			return (Cart) CRUDManager.getSession().get(Cart.class, id);
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return CartDAO.instance;
+
+	}
+
+	@Override
+	public List<Cart> getAll() {
+		try {
+			return CRUDManager.getSession().createCriteria(Cart.class).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
+
 	}
 	
-	private CartDAO() {
-		super("Cart");
-	}
 	
 	/**
 	 * Retrieve carts by owner
@@ -27,10 +42,14 @@ public class CartDAO extends ADAO<Cart> {
 	 * @return Cart list
 	 */
 	public List<Cart> getAllByClient(Client c) {
-		if (c != null) {
-			return this.getAllByClient(c.getId());
+		try {
+			if (c != null) {
+				return this.getAllByClient(c.getId());
+			}
+			return null;
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return null;
 	}
 	
 	/**
@@ -39,29 +58,19 @@ public class CartDAO extends ADAO<Cart> {
 	 * @return Cart list
 	 */
 	public List<Cart> getAllByClient(long client_id) {
-		//TODO
-		return null;
+		try {
+			return CRUDManager.getSession().createCriteria(Cart.class).createCriteria("client")
+					.add(Expression.eq("id", client_id)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 	
-	/**
-	 * Retrieve carts with a product inside
-	 * @param p Product object
-	 * @return Cart list
-	 */
-	public List<Cart> getAllByProduct(Product p) {
-		if (p != null) {
-			return this.getAllByProduct(p.getId());
+	public List<Cart> getAllByPaymentState(boolean state) {
+		try {
+			return CRUDManager.getSession().createCriteria(Cart.class).add(Expression.eq("paid", state)).list();
+		} catch(HibernateException e) {
+			throw new DAOException(e.getMessage());
 		}
-		return null;
-	}
-
-	/**
-	 * Retrieve carts with a product inside
-	 * @param productID product Id
-	 * @return Cart list
-	 */
-	public List<Cart> getAllByProduct(long product_id) {
-		// TODO I suck at sql
-		return null;
 	}
 }

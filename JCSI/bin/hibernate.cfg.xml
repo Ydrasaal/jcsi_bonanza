@@ -24,5 +24,6 @@
         <mapping class="jcsi.orm.entity.Coordinates"/>
         <mapping class="jcsi.orm.entity.Category"/>
         <mapping class="jcsi.orm.entity.Product"/>
+        <mapping class="jcsi.orm.entity.Content"/>
     </session-factory>
 </hibernate-configuration>
