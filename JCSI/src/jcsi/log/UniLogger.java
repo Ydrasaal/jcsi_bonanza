@@ -26,7 +26,7 @@ public class UniLogger {
 		this.mLog = Logger.getRootLogger();
 		this.view = view;
 		
-		Layout lay = new PatternLayout("%d{dd MMM yyyy HH:mm:ss:SSS} [%t] %-5p - %l - %m%n");
+		Layout lay = new PatternLayout("%d{dd MMM yyyy HH:mm:ss:SSS} [%t] %-5p - %m%n");
 		sw = new StringWriter();
 		WriterAppender writerAppender = new WriterAppender(lay, sw);
 		mLog.addAppender(writerAppender);

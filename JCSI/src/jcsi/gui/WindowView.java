@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
+
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -21,15 +24,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
+import jcsi.log.UniLogger;
+
 import org.apache.log4j.Logger;
 
-public class WindowView extends JFrame {
+public class WindowView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private final int buttonWidth = 150;
 	private final int buttonHeight = 50;
 	
-	private static HashMap<String, JButton> buttonMap;
+	private static HashMap<JButton, Method> buttonMap;
 	private JDesktopPane	desk;	
 	private JTextArea query;
 	private JToolBar	toolBar;
@@ -42,7 +47,7 @@ public class WindowView extends JFrame {
 	public WindowView() {
 		super("JCSI");
 
-		buttonMap = new HashMap<String, JButton>();
+		buttonMap = new HashMap<JButton, Method>();
 		this.setResizable(false);
 		setLocationRelativeTo(null);
 		setLayout(null);
@@ -100,7 +105,13 @@ public class WindowView extends JFrame {
 	public void buildButton(JButton button, String name, Rectangle dim , JPanel panel) {
 		 button = new JButton(name);
 		 button.setBounds(dim);
-		 buttonMap.put(name, button);
+		 button.addActionListener(this);
+		 try {
+			System.out.println(button.getText().replaceAll("\\s+",""));
+			buttonMap.put(button, WindowView.class.getMethod(button.getText().replaceAll("\\s+","")));
+		 } catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		 }
 		 panel.add(button);
 	}
 	
@@ -135,18 +146,44 @@ public class WindowView extends JFrame {
 			}
 		});	
 	}
-	
-	public void buildListeners() {
-		buttonMap.get("Confirm Query").addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(query.getText());
-				Logger logg = Logger.getLogger(this.getClass().getName());
-				logg.info("Event !!");
-			}
-			
-		});
+	@Override
+	public synchronized void actionPerformed(ActionEvent event) {
+		try {
+			buttonMap.get(event.getSource()).invoke(null);
+		} catch (IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
 	}
 	
+	public static void AddClient() {
+        UniLogger log = UniLogger.getInstance();
+        log.info("Adding new Client");
+    }
+	
+	public static void AddPanier() {
+		UniLogger log = UniLogger.getInstance();
+		log.info("Adding new Cart");
+	}
+	
+	public static void AddProduit() {
+		UniLogger log = UniLogger.getInstance();
+		log.info("Adding new Product");
+	}
+	
+	public static void AfficherClients() {
+		UniLogger log = UniLogger.getInstance();
+		log.info("Dumping Clients");
+	}
+	
+	public static void AfficherPaniers() {
+		UniLogger log = UniLogger.getInstance();
+		log.info("Dumping Carts");
+	}
+	
+	public static void ConfirmQuery() {
+		UniLogger log = UniLogger.getInstance();
+		log.info("Requesting Query");
+	}
 }
