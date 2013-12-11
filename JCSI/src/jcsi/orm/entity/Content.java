@@ -22,6 +22,11 @@ public class Content extends AEntity {
 	public Content() {
 		this.quantity = 0;
 	}
+	
+	public Content(Product p, int quantity) {
+		this.product = p;
+		this.quantity = quantity;
+	}
 
 	public Product getProduct() {
 		return this.product;
@@ -49,6 +54,6 @@ public class Content extends AEntity {
 
 	@Override
 	public String toString() {
-		return this.product.toString();
+		return (this.quantity + " x " + this.product.toString());
 	}
 }

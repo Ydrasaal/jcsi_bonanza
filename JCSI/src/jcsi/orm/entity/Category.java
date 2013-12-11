@@ -16,7 +16,7 @@ public class Category extends AEntity {
 	
 	@Column(name = "category_name")
 	private String	name;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category")
 	public Set<Product>	products;
 	
 	public Category() {

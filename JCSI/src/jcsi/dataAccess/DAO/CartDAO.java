@@ -68,7 +68,8 @@ public enum CartDAO implements IDAO<Cart> {
 	
 	public List<Cart> getAllByPaymentState(boolean state) {
 		try {
-			return CRUDManager.getSession().createCriteria(Cart.class).add(Expression.eq("paid", state)).list();
+			return CRUDManager.getSession().createCriteria(Cart.class)
+					.add(Expression.eq("paid", (state ? "true" : "false"))).list();
 		} catch(HibernateException e) {
 			throw new DAOException(e.getMessage());
 		}

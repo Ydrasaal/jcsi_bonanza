@@ -197,7 +197,6 @@ public class WindowView extends JFrame implements ActionListener {
 		for (Category c : l) {
 			log.info(c.toString());
 		}
-		//TODO Remplacer par category
 	}
 
 	@SuppressWarnings("rawtypes")

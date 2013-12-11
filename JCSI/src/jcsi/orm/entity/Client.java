@@ -25,7 +25,7 @@ public class Client extends AEntity {
 	private Coordinates coordinates;
 	@Column(name = "phone_number")
 	private String	phone;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "id")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "client")
 	public Set<Cart> carts;
 	
 	public Client() {
@@ -99,7 +99,8 @@ public class Client extends AEntity {
 		return("Client : " + this.first_name + " " + this.last_name + "\n"
 				+ "Email : " + this.email + "\n"
 				+ "Phone : " + this.phone + "\n"
-				+ "Address : " + (this.coordinates != null ? this.coordinates.toString() : ""));
+				+ "Address : " + (this.coordinates != null ? this.coordinates.toString() : "") + "\n"
+				+ "Carts : " + this.carts.toString());
 	}
 
 }

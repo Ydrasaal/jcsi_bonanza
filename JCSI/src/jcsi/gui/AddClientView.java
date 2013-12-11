@@ -10,6 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.exception.DAOException;
+import jcsi.log.UniLogger;
+import jcsi.orm.entity.Client;
+import jcsi.orm.entity.Coordinates;
+
 public class AddClientView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -103,7 +109,23 @@ public class AddClientView extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		//TODO Faire une requete avec les getText() de tous les JText area
+		try {
+			Client c = new Client();
+			c.setFirstName(this.firstName.getText());
+			c.setLastName(this.lastName.getText());
+			c.setPhone(this.tel.getText());
+			c.setEmail(this.mail.getText());
+			Coordinates coo = new Coordinates();
+			coo.setAddress(this.addr.getText());
+			coo.setCity(this.ville.getText());
+			coo.setCountry(this.pays.getText());
+			if (!coo.getAddress().equals("") || !coo.getCity().equals("") || !coo.getCountry().equals("")) {
+				c.setCoordinates(coo);				
+			}
+			CRUDManager.createOrUpdate(c);
+		} catch(DAOException e) {
+			UniLogger.getInstance().info("Couldn't add new Client");
+		}
 	}
 
 }

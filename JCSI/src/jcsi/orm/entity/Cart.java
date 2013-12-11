@@ -25,13 +25,14 @@ public class Cart extends AEntity {
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Client	client;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "id")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "cart")
 	private Set<Content> content;
 	@Column(name = "paid")
-	private boolean paid;
+	private String paid;
 	
 	public Cart() {
 		this.content = new HashSet<Content>();
+		this.paid = "false";
 	}	
 
 	public Client getClient() {
@@ -47,6 +48,7 @@ public class Cart extends AEntity {
 			this.content.remove(c);
 		}
 		this.content.add(c);
+		c.setCart(this);
 	}
 	
 	public void removeContent(Content c) {
@@ -54,19 +56,18 @@ public class Cart extends AEntity {
 	}
 	
 	public boolean isPaid() {
-		return this.paid;
+		return (this.paid == "true");
 	}
 
 	public void setPaid(boolean paid) {
-		this.paid = paid;
+		this.paid = (paid ? "true" : "false");
 	}
 
 
 	@Override
 	public String toString() {
-		return("Cart belonging to " + (this.client == null ? "an unknown client" : this.client.getFullName()
-				+ "\nContents : " + this.content.toString()));
-		//TODO add cart contents
+		return("Cart containing " + this.content.size() + " item(s) : " + this.content.toString()
+				+ " command paid : " + this.paid + "\n");
 	}
 
 }

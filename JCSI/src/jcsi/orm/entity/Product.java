@@ -49,8 +49,8 @@ public class Product extends AEntity {
 
 	@Override
 	public String toString() {
-		return ("Product : " + this.name + " - " + this.price + "$\n"
-				+ "Category : " + (this.category != null ? this.category.getName() : "-"));
+		return (this.name + " - " + this.price + "$"
+				+ " (" + (this.category != null ? this.category.getName() : "-") + ")");
 	}
 
 	/**

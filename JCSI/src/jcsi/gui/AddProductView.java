@@ -10,6 +10,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import jcsi.dataAccess.CRUD.CRUDManager;
+import jcsi.dataAccess.DAO.CategoryDAO;
+import jcsi.exception.DAOException;
+import jcsi.log.UniLogger;
+import jcsi.orm.entity.Category;
+import jcsi.orm.entity.Product;
+
 public class AddProductView extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -66,7 +73,23 @@ public class AddProductView extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		//TODO Faire une requete avec les getText() de tous les JText area
+		try {
+			Product p = new Product();
+			p.setName(this.productName.getText());
+			p.setPrice(new Double(this.price.getText()));
+			Category c = null;
+			try {
+				c = CategoryDAO.INSTANCE.getByName(this.categorName.getText());
+			} catch(DAOException e) {}
+			if (c == null) {
+				c = new Category();
+				c.setName(this.categorName.getText());
+			}
+			p.setCategory(c);
+			CRUDManager.createOrUpdate(p);
+		} catch(DAOException e) {
+			UniLogger.getInstance().info("Couldn't add new product");
+		}
 	}
 
 }
