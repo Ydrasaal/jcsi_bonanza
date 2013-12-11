@@ -15,6 +15,7 @@ public class AddProductView extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JTextArea productName;
 	private JTextArea price;
+	private JTextArea categorName;
 
 	public AddProductView() {
 		super("Adding a Product");
@@ -27,7 +28,7 @@ public class AddProductView extends JFrame implements ActionListener {
 	private void buildFormArea(JPanel panel) {
 		panel.setLayout(null);
 		panel.setBounds(0, 0, this.getX(), this.getY());
-		buildButton(new JButton(), "Confirm", new Rectangle(340, 5, 100, 45), panel);
+		buildButton(new JButton(), "Confirm", new Rectangle(510, 5, 100, 45), panel);
 		
 		productName = new JTextArea();
 		productName.setBounds(1, 30, 160, 20);
@@ -41,11 +42,18 @@ public class AddProductView extends JFrame implements ActionListener {
 		JLabel priceLabel = new JLabel("Price:");
 		priceLabel.setBounds(170, 10, 160, 19);
 		
+		categorName = new JTextArea();
+		categorName.setBounds(340, 30, 160, 20);
+		
+		JLabel catNameLabel = new JLabel("Category:");
+		catNameLabel.setBounds(340, 10, 160, 19);
+		
 		panel.add(productName);
 		panel.add(nameLabel);
 		panel.add(price);
 		panel.add(priceLabel);
-		
+		panel.add(categorName);
+		panel.add(catNameLabel);
 		this.add(panel);
 	}
 	
@@ -57,9 +65,8 @@ public class AddProductView extends JFrame implements ActionListener {
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent event) {
+		//TODO Faire une requete avec les getText() de tous les JText area
 	}
 
 }

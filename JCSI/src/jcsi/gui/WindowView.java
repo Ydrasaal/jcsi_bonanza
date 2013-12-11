@@ -84,7 +84,7 @@ public class WindowView extends JFrame implements ActionListener {
 		panel.setLayout(null);
 		panel.setBounds(0, 60, this.getX(), 55);
 		buildButton(new JButton(), "Afficher Clients", new Rectangle(50, 0, buttonWidth, buttonHeight), panel);
-		buildButton(new JButton(), "Afficher Paniers", new Rectangle(50 + buttonWidth + 10, 0, buttonWidth, buttonHeight), panel);
+		buildButton(new JButton(), "Afficher Categories", new Rectangle(50 + buttonWidth + 10, 0, buttonWidth, buttonHeight), panel);
 		this.add(panel);
 	}
 
@@ -92,7 +92,6 @@ public class WindowView extends JFrame implements ActionListener {
 		panel.setLayout(null);
 		panel.setBounds(0, 0, this.getX(), 55);
 		buildButton(new JButton(), "Add Client", new Rectangle(100, 0, buttonWidth, buttonHeight), panel);
-		buildButton(new JButton(), "Add Panier", new Rectangle(100 + buttonWidth + 10, 0, buttonWidth, buttonHeight), panel);
 		buildButton(new JButton(), "Add Produit", new Rectangle(100 + (2 * (buttonWidth + 10)), 0, buttonWidth, buttonHeight), panel);
 		this.add(panel);
 	}
@@ -167,27 +166,17 @@ public class WindowView extends JFrame implements ActionListener {
         log.info("Adding new Client");
         AddClientView clView = new AddClientView();
         
-        clView.setSize(460, 142);
+        clView.setSize(460, 250);
     	clView.setLocation(500, 150);
     	clView.setVisible(true);
     }
-	
-	public static void AddPanier() {
-		UniLogger log = UniLogger.getInstance();
-		log.info("Adding new Cart");
-        AddCartView cView = new AddCartView();
-        
-        cView.setSize(460, 142);
-    	cView.setLocation(500, 150);
-    	cView.setVisible(true);
-	}
 	
 	public static void AddProduit() {
 		UniLogger log = UniLogger.getInstance();
 		log.info("Adding new Product");
 		AddProductView pView = new AddProductView();
 	        
-		pView.setSize(460, 100);
+		pView.setSize(640, 100);
 		pView.setLocation(500, 150);
 		pView.setVisible(true);
 	}
@@ -201,9 +190,9 @@ public class WindowView extends JFrame implements ActionListener {
 		}
 	}
 	
-	public static void AfficherPaniers() {
+	public static void AfficherCategories() {
 		UniLogger log = UniLogger.getInstance();
-		log.info("Dumping Carts");
+		log.info("Dumping Categories");
 		List<Category> l = CategoryDAO.INSTANCE.getAll();
 		for (Category c : l) {
 			log.info(c.toString());

@@ -17,6 +17,9 @@ public class AddClientView extends JFrame implements ActionListener {
 	private JTextArea lastName;
 	private JTextArea tel;
 	private JTextArea mail;
+	private JTextArea addr;
+	private JTextArea ville;
+	private JTextArea pays;
 
 	public AddClientView() {
 		super("Adding a Client");
@@ -46,7 +49,7 @@ public class AddClientView extends JFrame implements ActionListener {
 		tel = new JTextArea();
 		tel.setBounds(1, 74, 160, 20);
 		
-		JLabel telLabel = new JLabel("Tel:");
+		JLabel telLabel = new JLabel("Phone:");
 		telLabel.setBounds(1, 54, 160, 19);
 		
 		mail = new JTextArea();
@@ -55,6 +58,24 @@ public class AddClientView extends JFrame implements ActionListener {
 		JLabel mailLabel = new JLabel("Mail:");
 		mailLabel.setBounds(170, 54, 160, 19);
 		
+		addr = new JTextArea();
+		addr.setBounds(1, 118, 160, 20);
+		
+		JLabel addrLabel = new JLabel("Address:");
+		addrLabel.setBounds(1, 98, 160, 19);
+		
+		ville = new JTextArea();
+		ville.setBounds(170, 118, 160, 20);
+		
+		JLabel villeLabel = new JLabel("City:");
+		villeLabel.setBounds(170, 98, 160, 19);
+		
+		pays = new JTextArea();
+		pays.setBounds(1, 162, 160, 20);
+		
+		JLabel paysLabel = new JLabel("Country:");
+		paysLabel.setBounds(1, 142, 160, 19);
+
 		panel.add(firstName);
 		panel.add(fNameLabel);
 		panel.add(lastName);
@@ -63,6 +84,12 @@ public class AddClientView extends JFrame implements ActionListener {
 		panel.add(telLabel);
 		panel.add(mail);
 		panel.add(mailLabel);
+		panel.add(addr);
+		panel.add(addrLabel);
+		panel.add(ville);
+		panel.add(villeLabel);
+		panel.add(pays);
+		panel.add(paysLabel);
 		
 		this.add(panel);
 	}
@@ -75,9 +102,8 @@ public class AddClientView extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent event) {
+		//TODO Faire une requete avec les getText() de tous les JText area
 	}
 
 }
