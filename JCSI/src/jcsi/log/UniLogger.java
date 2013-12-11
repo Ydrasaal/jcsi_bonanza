@@ -18,7 +18,7 @@ import org.apache.log4j.WriterAppender;
 public class UniLogger {
 
 	private final WindowView view;
-	public Logger mLog;
+	private Logger mLog;
 	private StringWriter sw;
 	private static UniLogger instance;
 	
