@@ -1,7 +1,6 @@
 package jcsi.exception;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import jcsi.log.UniLogger;
 
 public class MappingException extends DAOException {
 
@@ -9,9 +8,8 @@ public class MappingException extends DAOException {
 
 	public MappingException() {
 		super();
-		Logger log = Logger.getLogger(this.getClass().getName());
-		log.setLevel(Level.SEVERE);
-		log.severe("Object Relationnal Mappping does not correspond to the real database.");
+		UniLogger log = UniLogger.getInstance();
+		log.error("Object Relationnal Mappping does not correspond to the real database.");
 	}
 
 }

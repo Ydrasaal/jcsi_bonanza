@@ -1,7 +1,6 @@
 package jcsi.exception;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import jcsi.log.UniLogger;
 
 public class DAOException extends JCSIException {
 
@@ -13,9 +12,8 @@ public class DAOException extends JCSIException {
 	
 	public DAOException(String s) {
 		super();
-		Logger log = Logger.getLogger(this.getClass().getName());
-		log.setLevel(Level.SEVERE);
-		log.severe("DAO transaction failed : " + s);
+		UniLogger log = UniLogger.getInstance();
+		log.error("DAO transaction failed : " + s);
 	}
 
 }
